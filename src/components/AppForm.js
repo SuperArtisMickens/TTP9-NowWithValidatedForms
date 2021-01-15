@@ -1,27 +1,101 @@
 import React from 'react';
 import { TextField, Grid } from '@material-ui/core';
 import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SubmitButton from './SubmitButton';
+import { validateName } from '../js/deon-validator';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		'& .MuiTextField-root': {
-			margin: theme.spacing(2),
-			width: 400,
-		},
-	},
-}));
+// function Form() {
 
-function Form() {
-	const classes = useStyles();
+// 	return (
+		
+// 	);
+// }
 
-	return (
-		<form className={classes.root} direction="row" justify="flex-start" noValidate autoComplete="off">
+class AppForm extends React.Component {
+	constructor(props) {
+		super(props);
 
-			<TextField id="first-name" size="medium" label="First Name" />
-			<TextField id="last-name" label="Last Name" />
+		this.state = {
+			firstName: {
+				value: '',
+				error: ''
+			},
+			lastName: {
+				value: '',
+				error: ''
+			}
+		};
+	}
+
+	submitForm(event) {
+		event.preventDefault();
+
+		// Basic error checking
+		const firstNameError = validateName(this.state.firstName.value);
+
+		if(firstNameError) {
+			this.setState({
+				firstName: {
+					value: this.state.firstName.value,
+					error: firstNameError
+				}
+			});
+		}
+
+		const lastNameError = validateName(this.state.lastName.value);
+
+		if(lastNameError) {
+			this.setState({
+				lastName: {
+					value: this.state.lastName.value,
+					error: lastNameError
+				}
+			});
+		}
+
+		if(firstNameError || lastNameError) {
+			return;
+		}
+
+		// Error checks have been passed, proceed
+		alert(`${this.state.firstName.value} ${this.state.firstName.value} has been submitted`);
+
+		updateField(which, event) {
+			// Do convenience error check
+			if(event.target.value.length < 20) {
+				this.setState({
+					[which]: {
+						value: event.target.value,
+						error: this.state[which].error
+					}
+				});
+			}
+
+			Implied else, do nothing
+		}
+	}
+
+	render() {
+		return (
+			<Grid container spacing={4}>
+				<form className={classes.root} direction="row" justify="flex-start" noValidate autoComplete="off" onSubmit={(event) => {this.submitForm(event);}}>
+			<Grid item lg={6}>
+				<TextField fullWidth
+				id="first-name" label="First Name"
+				value={this.state.firstName.value}
+				error={this.state.firstNameError !=''}
+				onChange={(event) => {this.updateField('firstName', event);}}
+				/>
+			</Grid>
+			<Grid item lg={6}>
+				<TextField fullWidth
+				id="last-name" label="Last Name"
+				value={this.state.lastName.value}
+				error={this.state.lastNameError !=''}
+				onChange={(event) => {this.updateField('lastName', event);}}
+				/>
+			</Grid>
 
 			<TextField
 				label="Annual Salary"
@@ -34,15 +108,6 @@ function Form() {
 
 			<SubmitButton />
 		</form>
-	);
-}
-
-class AppForm extends React.Component {
-
-	render() {
-		return (
-			<Grid item xs={3} lg={6}>
-				<Form />
 			</Grid>
 		);
 	}
