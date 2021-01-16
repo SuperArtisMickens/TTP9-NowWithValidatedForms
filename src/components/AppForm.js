@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField, Grid } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SubmitButton from './SubmitButton';
-import { validateName } from '../js/deon-validator';
+import { validateName, validateSal } from '../js/deon-validator';
 
 // function Form() {
 
@@ -21,6 +21,10 @@ class AppForm extends React.Component {
 				error: ''
 			},
 			lastName: {
+				value: '',
+				error: ''
+			},
+			annualSal: {
 				value: '',
 				error: ''
 			}
@@ -53,12 +57,23 @@ class AppForm extends React.Component {
 			});
 		}
 
-		if(firstNameError || lastNameError) {
+		const annualSalError = validateSal(this.state.annualSal.value);
+
+		if(annualSalError) {
+			this.setState({
+				annualSal: {
+					value: this.state.annualSal.value,
+					error: annualSalError
+				}
+			})
+		}
+
+		if(firstNameError || lastNameError || annualSalError) {
 			return;
 		}
 
 		// Error checks have been passed, proceed
-		alert(`${this.state.firstName.value} ${this.state.firstName.value} has been submitted`);
+		alert(`${this.state.firstName.value} ${this.state.firstName.value} with an annual salary of $${this.state.annualSal.value} has been submitted`);
 	}
 
 	updateField(which, event) {
@@ -81,27 +96,34 @@ class AppForm extends React.Component {
 			<Grid container spacing={4}>
 			<Grid item lg={6}>
 				<TextField fullWidth
-				id="first-name" label="First Name"
+				label="First Name"
 				value={this.state.firstName.value}
-				error={this.state.firstNameError !=''}
+				error={this.state.firstName.error != ''}
+				helperText={this.state.firstName.error}
 				onChange={(event) => {this.updateField('firstName', event);}}
+				variant='outlined'
 				/>
 			</Grid>
 			<Grid item lg={6}>
 				<TextField fullWidth
-				id="last-name" label="Last Name"
+				label="Last Name"
 				value={this.state.lastName.value}
-				error={this.state.lastNameError !=''}
+				error={this.state.lastName.error != ''}
+				helperText={this.state.lastName.error}
 				onChange={(event) => {this.updateField('lastName', event);}}
+				variant='outlined'
 				/>
 			</Grid>
 			<Grid item lg={6}>
 				<TextField fullWidth
-					label="Annual Salary"
-					id="standard-start-adornment"
-					InputProps={{
-						startAdornment: <InputAdornment position="start">$</InputAdornment>,
-					}}
+				label="Annual Salary"
+				value={this.state.annualSal.value}
+				error={this.state.annualSal.error != ''}
+				helperText={this.state.annualSal.error}
+				onChange={(event) => {this.updateField('annualSal', event);}}
+				InputProps={{
+					startAdornment: <InputAdornment position="start">$</InputAdornment>,
+				}}
 				/>
 			</Grid>
 			<Grid container justify='center'>

@@ -18,8 +18,16 @@ function validateName(value){
     }
     
     // implied else
-    return null;
+    return '';
+}
+
+function validateSal(value) {
+    const ISNUM = /[0-9]/;
+
+    if(!(ISNUM).test(value)) {
+        return 'Annual salary must be a number rounded to the nearest $';
+    }
 }
 
 
-export {validateName};
+export {validateName, validateSal};
