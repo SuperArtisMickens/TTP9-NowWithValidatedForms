@@ -16,7 +16,8 @@ class ContactUs extends React.Component {
 					</Typography>
 					<EmailMessage />
 				</CardContent>
-				<CardActions>
+				
+        <CardActions>
 					<Button variant="contained" color="primary">
 						Send Message
 					</Button>

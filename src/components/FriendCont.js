@@ -1,5 +1,10 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import SubmitButton from './SubmitButton';
+
+
+
 
 class FriendCont extends React.Component {
 	render() {
@@ -13,6 +18,14 @@ class FriendCont extends React.Component {
 					multiline
 				/>
 
+        <TextField
+					id="friendphone"
+					label="Friend's Tel. No"
+					required
+					fullWidth
+					multiline
+				/>
+
 				<TextField
 					id="friendcontactEmail"
 					label="Friend Contact Email"
@@ -20,6 +33,7 @@ class FriendCont extends React.Component {
 					placeholder="username@example.com"
 				/>
 
+        <SubmitButton />
 			</>
 		);
 	}
