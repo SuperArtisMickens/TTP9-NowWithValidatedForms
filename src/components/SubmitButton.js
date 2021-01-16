@@ -5,7 +5,7 @@ class SubmitButton extends React.Component {
 
 	render() {
 		return (
-			<Button variant='contained' color="primary">Submit</Button>
+			<Button variant='contained' color="primary" type="submit">Submit</Button>
 		);
 	}
 }
