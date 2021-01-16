@@ -1,5 +1,11 @@
-# TTP9-NowWithValidatedForms
-Primarily to practice using Material UI Input elements to create form skeletons in React, within the framing of a mock informational website.  Secondarily to practice implementing form validation in React.
+# MEC TTP 2021 Winter Assignment 9: Now with Validated Forms!
+
+
+## Purpose
+
+Primarily to practice using Material UI Input elements to create form skeletons in React, within the framing of a mock informational website.
+
+Secondarily to practice implementing form validation in React.
 
 ## Task and requirements
 
