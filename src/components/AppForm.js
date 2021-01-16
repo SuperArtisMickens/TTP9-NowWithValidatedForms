@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextField, Grid } from '@material-ui/core';
-import clsx from 'clsx';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SubmitButton from './SubmitButton';
 import { validateName } from '../js/deon-validator';
@@ -60,26 +59,26 @@ class AppForm extends React.Component {
 
 		// Error checks have been passed, proceed
 		alert(`${this.state.firstName.value} ${this.state.firstName.value} has been submitted`);
+	}
 
-		updateField(which, event) {
-			// Do convenience error check
-			if(event.target.value.length < 20) {
-				this.setState({
-					[which]: {
-						value: event.target.value,
-						error: this.state[which].error
-					}
-				});
-			}
-
-			Implied else, do nothing
+	updateField(which, event) {
+		// Do convenience error check
+		if(event.target.value.length < 20) {
+			this.setState({
+				[which]: {
+					value: event.target.value,
+					error: this.state[which].error
+				}
+			});
 		}
+
+		// Implied else, do nothing
 	}
 
 	render() {
 		return (
+				<form onSubmit={(event) => {this.submitForm(event);}}>
 			<Grid container spacing={4}>
-				<form className={classes.root} direction="row" justify="flex-start" noValidate autoComplete="off" onSubmit={(event) => {this.submitForm(event);}}>
 			<Grid item lg={6}>
 				<TextField fullWidth
 				id="first-name" label="First Name"
@@ -96,19 +95,20 @@ class AppForm extends React.Component {
 				onChange={(event) => {this.updateField('lastName', event);}}
 				/>
 			</Grid>
-
-			<TextField
-				label="Annual Salary"
-				id="standard-start-adornment"
-				className={clsx(classes.margin, classes.textField)}
-				InputProps={{
-					startAdornment: <InputAdornment position="start">$</InputAdornment>,
-				}}
-			/>
-
-			<SubmitButton />
-		</form>
+			<Grid item lg={6}>
+				<TextField fullWidth
+					label="Annual Salary"
+					id="standard-start-adornment"
+					InputProps={{
+						startAdornment: <InputAdornment position="start">$</InputAdornment>,
+					}}
+				/>
 			</Grid>
+			<Grid container justify='center'>
+				<SubmitButton />
+			</Grid>
+			</Grid>
+		</form>
 		);
 	}
 }
