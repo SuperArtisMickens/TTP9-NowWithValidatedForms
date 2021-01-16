@@ -15,7 +15,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import SimpleSnackbar from './components/Snackbar';
-import SimpleDialogDemo from './components/Login';
+import Login from './components/HLogin';
 import Button from '@material-ui/core/Button';
 import FriendCont from './components/FriendCont';
 import Submissions from './components/Submissions';
@@ -23,6 +23,7 @@ import ContactUs from './components/ContactUs';
 import { Switch, Route, Link, } from "react-router-dom";
 import Info from './Info';
 import Marathon from './Marathon';
+import HenjiLogin from './HenjiLogin';
 
 // sidebar icons
 import HomeIcon from '@material-ui/icons/Home';
@@ -138,7 +139,7 @@ export default function MiniDrawer() {
 							</Typography>
 						</Grid>
 						<Grid item xs={1}>
-							<SimpleDialogDemo />
+							<Login />
 						</Grid>
 					</Grid>
 				</Toolbar>
@@ -218,6 +219,14 @@ export default function MiniDrawer() {
 							</Button>
 						</Link>
 					</ListItem>
+					<ListItem>
+						{/* This link leads to the HenjiLogin */}
+						<Link to="/HenjiLogin">
+							<Button>
+								<PersonAddIcon /> Henry's form
+							</Button>
+						</Link>
+					</ListItem>
 				</List>
 			</Drawer>
 			<main className={classes.content}>
@@ -251,11 +260,15 @@ export default function MiniDrawer() {
 								<ContactUs />
 							</Route>
 
+							<Route path="/HenjiLogin">
+								<HenjiLogin/>
+							</Route>
 							{/* This switches to Home page*/}
 							<Route path="/">
 								<img src="https://i.imgur.com/zHOv7ih.jpeg" alt="rich cat" height="800"></img>
 								<SimpleSnackbar />
 							</Route>
+
 
 						</Switch>
 					</Grid>
